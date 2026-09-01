@@ -1,187 +1,70 @@
 # SAP CRM Customer Analytics & Segmentation
 
-A customer analytics prototype demonstrating SAP CRM-oriented customer analysis, segmentation, predictive analytics, reporting, data quality testing, and ABAP Objects concepts.
+A hands-on SAP CRM-oriented customer analytics project combining **customer data modeling, CRM process analysis, customer segmentation, predictive analytics, reporting, and ABAP Objects development**.
 
-> **Important:** This is a portfolio/learning project using synthetic CRM data. It was not developed against a production SAP CRM or SAP S/4HANA system.
+The project simulates an enterprise CRM environment using synthetic customer, sales, and interaction data and demonstrates how CRM data can be transformed into actionable insights for customer experience, retention, and business decision-making.
 
-## Project Overview
+---
 
-Customer Relationship Management (CRM) systems generate valuable information about customers, purchases, interactions, and service experiences.
+## Project Objectives
 
-This project simulates a CRM analytics workflow in which customer, sales-order, and interaction data are integrated into a **Customer 360** dataset and analyzed to support customer segmentation, churn-risk identification, and CRM decision-making.
+The project was built to demonstrate practical understanding of CRM analytics workflows and SAP-oriented development concepts, including:
 
-```text
-CRM Customer Data
-       │
-       ├── Customers
-       ├── Sales Orders
-       └── Interactions
-              │
-              ▼
-       Data Integration
-              │
-              ▼
-        Customer 360
-              │
-       ┌──────┴─────────┐
-       ▼                ▼
-  RFM Analysis     Interaction
-       │             Analysis
-       ▼                │
- Customer          Customer
- Segmentation      Experience
-       │                │
-       └──────┬─────────┘
-              ▼
-       Churn Prediction
-              │
-              ▼
-      CRM Reporting
-              │
-              ▼
-       Business Actions
-```
-
-## Business Objectives
-
-The project addresses common CRM analytics questions:
-
-* Which customers generate the most revenue?
-* Which customers are the most valuable?
-* Which customers are at risk of churn?
-* Which customer segments should receive retention or upselling campaigns?
-* Which CRM interaction channels produce better customer satisfaction?
-* Does customer service performance relate to customer risk?
-* How can CRM data be transformed into actionable reports?
-
-## Key Features
-
-### Customer 360
-
-Combines:
-
-* Customer demographics
-* Customer type
-* Industry
-* Region
-* Sales activity
-* Revenue
-* Purchase frequency
-* Recency
-* Customer interactions
-* Satisfaction
-* Complaints
-* Resolution time
-
-### RFM Customer Segmentation
-
-Customers are segmented using:
-
-* **Recency** — how recently the customer purchased
-* **Frequency** — how often the customer purchased
-* **Monetary Value** — how much revenue the customer generated
-
-K-Means clustering is used to identify customer groups.
-
-Example segments:
-
-* Champions
-* Loyal Customers
-* Potential Loyalists
-* At Risk
-* Lost Customers
-
-### Predictive Analytics
-
-A Random Forest model estimates customer churn risk using CRM behavior and customer-experience features.
-
-Example features:
-
-```text
-recency
-frequency
-monetary_value
-interaction_count
-avg_satisfaction
-avg_resolution_time
-complaints
-```
-
-The resulting dataset includes:
-
-```text
-customer_id
-churn_probability
-risk_level
-```
-
-Customers are classified into:
-
-* Low risk
-* Medium risk
-* High risk
-
-### CRM Process Analysis
-
-Customer interactions are analyzed using:
-
-* Interaction channel
-* Interaction type
-* Resolution time
-* Satisfaction score
-* Complaints
-
-This supports analysis of customer experience and CRM service processes.
-
-## Dashboard
-
-The Streamlit dashboard provides:
-
-* Total customers
-* Customer revenue
-* Average satisfaction
-* High-risk customer count
-* Customer segment distribution
-* Revenue by segment
-* Churn-risk distribution
-* High-risk customer table
-
-Run the dashboard with:
-
-```bash
-streamlit run dashboard/app.py
-```
-
-## SAP / ABAP Component
-
-The project includes an ABAP Objects-style customer analysis component:
-
-```text
-abap/
-├── zcrm_customer_report.abap
-└── README.md
-```
-
-The ABAP component demonstrates:
-
-* ABAP report structure
+* Customer 360 analysis
+* Customer segmentation
+* RFM analysis
+* Predictive customer churn analytics
+* CRM process and customer-experience analysis
+* Customer reporting
+* Data integration and transformation
 * ABAP Objects
-* Local classes
-* Methods
-* Importing parameters
-* Returning parameters
-* Structured types
-* Conditional business logic
-* Customer classification
-* CRM reporting concepts
+* Structured business logic
+* Automated testing
+* Analytics dashboards
 
-The ABAP component uses customer revenue, purchase frequency, and recency to classify customers into CRM segments.
+---
 
-### Important
+## Architecture
 
-The ABAP implementation is a learning artifact demonstrating ABAP Objects concepts. It was not executed against a production SAP system.
+```text
+             CRM Customer Data
+                    │
+       ┌────────────┼────────────┐
+       ▼            ▼            ▼
+   Customers      Orders    Interactions
+       │            │            │
+       └────────────┼────────────┘
+                    ▼
+             Data Integration
+                    │
+                    ▼
+              Customer 360
+                    │
+          ┌─────────┴─────────┐
+          ▼                   ▼
+     RFM Analysis       CRM Experience
+          │                Analysis
+          ▼                   │
+     Segmentation             │
+          │                   │
+          └─────────┬─────────┘
+                    ▼
+             Churn Prediction
+                    │
+                    ▼
+             CRM Reporting
+                    │
+          ┌─────────┴─────────┐
+          ▼                   ▼
+     Dashboard          ABAP Objects
+                         Reporting
+```
 
-## Data Model
+---
+
+# 1. Customer 360 Analytics
+
+The project integrates three CRM-style datasets:
 
 ### Customers
 
@@ -219,23 +102,277 @@ resolution_time_hours
 satisfaction_score
 ```
 
-## Technology Stack
+These datasets are linked through `customer_id` to create a consolidated **Customer 360 view**.
 
-| Technology   | Purpose                                        |
-| ------------ | ---------------------------------------------- |
-| Python       | Data processing and analytics                  |
-| Pandas       | Data transformation                            |
-| NumPy        | Numerical processing                           |
-| Scikit-learn | Customer segmentation and predictive analytics |
-| Streamlit    | CRM analytics dashboard                        |
-| Matplotlib   | Visualization                                  |
-| Pytest       | Automated testing                              |
-| ABAP         | SAP-oriented reporting demonstration           |
-| ABAP Objects | Object-oriented customer analysis              |
-| JSON         | CRM data ingestion                             |
-| Git/GitHub   | Version control                                |
+The resulting dataset contains:
 
-## Project Structure
+* Purchase recency
+* Purchase frequency
+* Monetary value
+* Customer lifetime value
+* Number of interactions
+* Average satisfaction
+* Resolution time
+* Complaint frequency
+
+This provides the analytical foundation for CRM decision-making.
+
+---
+
+# 2. Customer Segmentation
+
+Customers are segmented using **RFM analysis** and K-Means clustering.
+
+### RFM dimensions
+
+**Recency**
+
+How recently did the customer purchase?
+
+**Frequency**
+
+How frequently does the customer purchase?
+
+**Monetary Value**
+
+How much revenue does the customer generate?
+
+The resulting customer groups include:
+
+```text
+Champions
+Loyal Customers
+Potential Loyalists
+At Risk
+Lost Customers
+```
+
+The segmentation can support CRM activities such as:
+
+* Customer retention
+* Cross-selling
+* Upselling
+* Win-back campaigns
+* High-value customer management
+
+---
+
+# 3. Predictive Customer Analytics
+
+A Random Forest classification model is used to estimate customer churn risk.
+
+Features include:
+
+```text
+recency
+frequency
+monetary_value
+interaction_count
+avg_satisfaction
+avg_resolution_time
+complaints
+```
+
+The model generates:
+
+```text
+customer_id
+churn_probability
+risk_level
+```
+
+Customers are classified as:
+
+```text
+Low Risk
+Medium Risk
+High Risk
+```
+
+This allows CRM teams to prioritize customers who may require proactive engagement.
+
+> The churn target is synthetically generated from customer behavior because the dataset does not contain historical real-world churn labels.
+
+---
+
+# 4. CRM Process & Customer Experience Analysis
+
+CRM interactions are analyzed to understand customer experience and service performance.
+
+The project examines:
+
+* Interaction channels
+* Support requests
+* Complaints
+* Resolution times
+* Satisfaction scores
+* Customer segments
+* Churn risk
+
+This allows questions such as:
+
+* Which interaction channels produce higher satisfaction?
+* Which customers generate the most support activity?
+* Does longer resolution time coincide with lower satisfaction?
+* Are customers with more complaints more likely to be high-risk?
+* Which customer segments require additional CRM attention?
+
+The objective is to connect **operational CRM processes with customer outcomes**.
+
+---
+
+# 5. CRM Reporting Dashboard
+
+A Streamlit dashboard provides an interactive CRM management view.
+
+### Dashboard KPIs
+
+* Total customers
+* Total customer revenue
+* Average customer satisfaction
+* High-risk customer count
+
+### Dashboard analyses
+
+* Customer segment distribution
+* Revenue by customer segment
+* Churn-risk distribution
+* High-risk customer identification
+
+Run the dashboard:
+
+```bash
+streamlit run dashboard/app.py
+```
+
+---
+
+# 6. ABAP Objects Customer Analysis
+
+The project includes an ABAP Objects implementation of customer classification logic.
+
+```text
+abap/
+├── zcrm_customer_report.abap
+└── README.md
+```
+
+The ABAP component demonstrates:
+
+* ABAP report structure
+* ABAP Objects
+* Local classes
+* Methods
+* Structured types
+* Importing parameters
+* Returning parameters
+* Conditional business logic
+* Customer segmentation
+* CRM reporting logic
+
+The customer-analysis class applies business rules using:
+
+```text
+Revenue
+Purchase Frequency
+Recency
+```
+
+to classify customers into CRM segments.
+
+Example structure:
+
+```abap
+CLASS lcl_customer_analysis DEFINITION.
+
+  PUBLIC SECTION.
+
+    METHODS:
+      calculate_segment
+        IMPORTING
+          iv_revenue TYPE p
+          iv_frequency TYPE i
+          iv_recency TYPE i
+        RETURNING
+          VALUE(rv_segment) TYPE string.
+
+ENDCLASS.
+```
+
+This demonstrates how CRM business rules can be encapsulated using **object-oriented ABAP concepts**.
+
+---
+
+# 7. Data Integration
+
+The Python pipeline demonstrates an ETL-style CRM workflow:
+
+```text
+Raw CRM Data
+     ↓
+Data Validation
+     ↓
+Data Integration
+     ↓
+Customer 360
+     ↓
+Analytics
+     ↓
+Reporting
+```
+
+The pipeline transforms JSON-based CRM data into structured, analytics-ready CSV datasets.
+
+Output datasets include:
+
+```text
+customer_360.csv
+customer_segments.csv
+churn_predictions.csv
+```
+
+---
+
+# 8. Data Quality & Testing
+
+Automated tests are implemented with Pytest.
+
+The tests verify:
+
+* Customer dataset availability
+* Customer ID uniqueness
+* Valid customer references
+* Valid segmentation labels
+* Churn probability ranges
+* Non-negative revenue
+
+Run:
+
+```bash
+python -m pytest -v
+```
+
+---
+
+# Technology Stack
+
+| Technology   | Purpose                               |
+| ------------ | ------------------------------------- |
+| Python       | CRM data processing and analytics     |
+| Pandas       | Data transformation                   |
+| NumPy        | Numerical processing                  |
+| Scikit-learn | Segmentation and predictive analytics |
+| Streamlit    | CRM dashboard                         |
+| Matplotlib   | Visualization                         |
+| Pytest       | Automated testing                     |
+| ABAP         | SAP-oriented business logic           |
+| ABAP Objects | Object-oriented CRM analysis          |
+| JSON         | Data interchange                      |
+| Git/GitHub   | Version control                       |
+
+---
+
+# Project Structure
 
 ```text
 sap-crm-customer-analytics/
@@ -276,171 +413,195 @@ sap-crm-customer-analytics/
 └── .gitignore
 ```
 
-## Running the Project
+---
 
-### 1. Clone
+# Running the Project
+
+## Clone
 
 ```bash
 git clone https://github.com/Dapsin19/sap-crm-customer-analytics.git
 cd sap-crm-customer-analytics
 ```
 
-### 2. Create environment
+## Create environment
 
 ```bash
 python3 -m venv .venv
 source .venv/bin/activate
 ```
 
-### 3. Install dependencies
+## Install dependencies
 
 ```bash
 pip install -r requirements.txt
 ```
 
-### 4. Generate CRM data
+## Generate CRM data
 
 ```bash
 python src/generate_data.py
 ```
 
-### 5. Build Customer 360
+## Build Customer 360
 
 ```bash
 python src/customer_analytics.py
 ```
 
-### 6. Segment customers
+## Run segmentation
 
 ```bash
 python src/segmentation.py
 ```
 
-### 7. Predict churn risk
+## Run predictive analytics
 
 ```bash
 python src/churn_model.py
 ```
 
-### 8. Run tests
+## Run tests
 
 ```bash
 python -m pytest -v
 ```
 
-### 9. Launch dashboard
+## Launch dashboard
 
 ```bash
 streamlit run dashboard/app.py
 ```
 
-## Data Quality & Testing
+---
 
-Automated tests verify:
+# Business Applications
 
-* Customer dataset availability
-* Customer ID uniqueness
-* Valid customer references
-* Valid segmentation labels
-* Churn probabilities between 0 and 1
-* Non-negative customer revenue
-
-Run:
-
-```bash
-python -m pytest -v
-```
-
-## Example Business Applications
-
-The resulting CRM analytics could support:
+The project demonstrates how CRM analytics can support:
 
 ### Customer Retention
 
-Identify high-value customers with elevated churn risk and prioritize them for retention campaigns.
+Identify high-value customers with elevated churn risk.
 
-### Upselling
+### Customer Segmentation
 
-Identify loyal or high-value customers with opportunities for additional products or services.
+Group customers according to purchasing behavior and value.
 
-### Customer Experience
+### Customer Experience Management
 
-Investigate relationships between resolution time, satisfaction, complaints, and customer risk.
+Analyze service interactions, satisfaction, complaints, and resolution times.
 
-### CRM Reporting
+### Sales Optimization
 
-Provide management with customer KPIs, segment distributions, revenue analysis, and risk indicators.
+Identify customers suitable for cross-selling and upselling.
 
-## Limitations
+### Management Reporting
 
-This project uses synthetic data and therefore does not represent the complexity of a production SAP CRM environment.
+Provide customer KPIs, revenue analysis, segmentation, and risk indicators.
 
-It does not claim production experience with:
+---
 
-* SAP CRM
-* SAP S/4HANA
-* SAP BW
+# SAP & ABAP Learning Scope
+
+This project is deliberately designed as a **hands-on SAP CRM and ABAP learning project** rather than a claim of production SAP consulting experience.
+
+The implementation focuses on understanding how:
+
+```text
+CRM Business Requirements
+        ↓
+Customer Data
+        ↓
+Business Logic
+        ↓
+ABAP Objects
+        ↓
+Analytics & Reporting
+```
+
+can work together in an enterprise environment.
+
+The Python components provide the data-engineering and analytics layer, while the ABAP component demonstrates how customer-classification business logic can be represented using ABAP Objects.
+
+---
+
+# Limitations
+
+The CRM datasets are synthetic and created specifically for this project.
+
+The project does not use confidential customer information or production SAP data.
+
+The ABAP component is a portfolio implementation and should be considered a demonstration of ABAP Objects concepts rather than evidence of production SAP ABAP development experience.
+
+Similarly, the project simulates SAP CRM-oriented processes rather than claiming implementation experience with a live SAP CRM system.
+
+---
+
+# Future SAP Extensions
+
+The project can be extended toward a more complete SAP environment through:
+
+* SAP S/4HANA integration
+* SAP CRM APIs
+* OData services
 * SAP HANA
-* SAP ABAP development systems
-
-The purpose is to demonstrate transferable CRM analytics, data engineering, predictive analytics, testing, reporting, and introductory ABAP Objects concepts.
-
-## Future Improvements
-
-Potential extensions include:
-
-* SAP OData integration
-* SAP HANA integration
-* SAP BW analytics
-* SAP S/4HANA customer data integration
-* Production Fiori reporting
-* Real ABAP development-system execution
+* SAP BW
 * ABAP CDS Views
-* SQL-based CRM analytics
-* Power BI dashboard
-* REST API integration
-* Docker deployment
-* CI/CD with GitHub Actions
+* SAP Fiori reporting
+* SAP Business Technology Platform
+* Real SAP development-system implementation
+* Integration with external CRM systems
 
-## Skills Demonstrated
+---
 
-**CRM & Business Analytics**
+# Skills Demonstrated
+
+### CRM & Customer Analytics
 
 * Customer 360
-* Customer segmentation
 * RFM analysis
+* Customer segmentation
 * Customer lifetime value
-* Churn analysis
+* Churn prediction
 * Customer experience analytics
 * CRM reporting
 
-**Data Science**
-
-* Feature engineering
-* K-Means clustering
-* Random Forest
-* Predictive analytics
-* Model evaluation
-
-**Data Engineering**
-
-* JSON ingestion
-* Data transformation
-* Data quality checks
-* Analytics-ready datasets
-
-**SAP / ABAP**
+### SAP / ABAP
 
 * SAP CRM concepts
 * ABAP fundamentals
 * ABAP Objects
-* Customer reporting logic
-* SAP-oriented business process modeling
+* Object-oriented business logic
+* Customer reporting
+* CRM-oriented business processes
 
-**Software Engineering**
+### Data Science
+
+* Feature engineering
+* K-Means clustering
+* Random Forest
+* Predictive modeling
+* Model evaluation
+
+### Data Engineering
+
+* JSON ingestion
+* Data transformation
+* Data integration
+* Data quality validation
+* Analytics-ready datasets
+
+### Software Engineering
 
 * Modular Python
 * Automated testing
-* Virtual environments
 * Git/GitHub
+* Reproducible development workflows
 
+---
+
+## Author
+
+**Dapsin19**
+
+Data Science · Healthcare AI · Customer Analytics · SAP/ABAP Learning · Data Engineering
